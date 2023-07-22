@@ -1,35 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react'
+import { Component } from 'react';
+import axios from 'axios';
 
-function App() {
-  const [count, setCount] = useState(0)
+const location_key = import.meta.env.VITE_APP_location_key;
 
+
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      birminghamDisplayName: '',
+      birminghamLon: '',
+      birminghamLat: ''
+    }
+  }
+
+  handleGetBirmingham = async () => {
+    let result = await axios.get("https://us1.locationiq.com/v1/search?key=YOUR_ACCESS_TOKEN&q=SEARCH_STRING&format=json");
+    let data = result.data;
+    console.log(result.data[0].display_name);
+    this.setState({
+      birminghamDisplayName: data[0].display_name,
+      birminghamLat: '',
+      birminghamLon: ''
+    })
+    console.log("complete");
+  }
+
+}
+
+render(); {
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      <h2> {this.state.birminghamDisplayName} </h2>
+      <button onClick={this.handleGetBirmingham}>Explore</button>
+
+    </>);
 }
+
 
 export default App
