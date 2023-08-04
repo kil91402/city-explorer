@@ -33,6 +33,10 @@ class App extends Component {
         locationMap: `https://maps.locationiq.com/v3/staticmap?key=${location_key}&center=${data.lat},${data.lon}&zoom=15`,
         error: null,
       });
+      result = await axios.get(
+        `http://localhost:3000/weather?&${req.query.data.lat},${req.query.data.lon}&key=`
+      );
+
     } catch (error) {
       this.setState({
         error: error.response.status + ' ' + error.response.data.error,
