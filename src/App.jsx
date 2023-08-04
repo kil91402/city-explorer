@@ -23,9 +23,13 @@ class App extends Component {
     event.preventDefault();
     try {
       const result = await axios.get(
-        `https://us1.locationiq.com/v1/search.php?key=${location_key}&q=${this.state.locationName}&format=json`
+        `https://us1.locationiq.com/v1/search.php?key=${location_key}&q=${this.state.locationName}&format=json`,
       );
       const data = result.data[0];
+      const weatherData = await axios.get(
+        `http://localhost:3000/weather?lat=${data.lat}&lon=${data.lon}`,
+      )
+      console.log(weatherData);
       this.setState({
         locationDisplayName: data.display_name,
         locationLat: data.lat,
