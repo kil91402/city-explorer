@@ -23,10 +23,10 @@ class App extends Component {
   handleExplore = async (event) => {
     event.preventDefault();
     try {
-      const result = await axios.get(
+     let result = await axios.get(
         `https://us1.locationiq.com/v1/search.php?key=${location_key}&q=${this.state.locationName}&format=json`
       );
-      const data = result.data[0];
+      let data = result.data[0];
       this.setState({
         locationDisplayName: data.display_name,
         locationLat: data.lat,
@@ -35,10 +35,12 @@ class App extends Component {
         error: null,
       });
       result = await axios.get(
-        `http://localhost:3000/weather?&${req.query.data.lat},${req.query.data.lon}&key=${WEATHER_API_KEY}`,
+       // `http://localhost:3000/weather?&${req.query.data.lat},${req.query.data.lon}&key=${WEATHER_API_KEY}`,
+       `http://localhost:3000/weather?lat=${data.lat}&lon=${data.lon}&searchQuery=${data.display_name}`,
       );
 
     } catch (error) {
+      console.log(error);
       this.setState({
         error: error.response.status + ' ' + error.response.data.error,
       });
