@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "./styles.css";
 
 const location_key = import.meta.env.VITE_APP_location_key;
+const WEATHER_API_KEY = import.meta.env.WEATHER_API_KEY;
 
 class App extends Component {
   constructor(props) {
@@ -34,7 +35,7 @@ class App extends Component {
         error: null,
       });
       result = await axios.get(
-        `http://localhost:3000/weather?&${req.query.data.lat},${req.query.data.lon}&key=`
+        `http://localhost:3000/weather?&${req.query.data.lat},${req.query.data.lon}&key=${WEATHER_API_KEY}`,
       );
 
     } catch (error) {
