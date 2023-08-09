@@ -16,6 +16,7 @@ class App extends Component {
       locationLon: '',
       locationLat: '',
       locationMap: '',
+      locationWeather: '',
       error: null,
     };
   }
@@ -38,6 +39,11 @@ class App extends Component {
        // `http://localhost:3000/weather?&${req.query.data.lat},${req.query.data.lon}&key=${WEATHER_API_KEY}`,
        `http://localhost:3000/weather?lat=${data.lat}&lon=${data.lon}&searchQuery=${data.display_name}`,
       );
+
+      this.setState({
+        locationDate: data.date, 
+        locationDescripton: data.description,
+      })
 
     } catch (error) {
       console.log(error);
