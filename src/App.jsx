@@ -17,6 +17,8 @@ class App extends Component {
       locationLat: '',
       locationMap: '',
       locationWeather: '',
+      locationDate:'',
+      locationDescripton:'',
       error: null,
     };
   }
@@ -39,12 +41,12 @@ class App extends Component {
        // `http://localhost:3000/weather?&${req.query.data.lat},${req.query.data.lon}&key=${WEATHER_API_KEY}`,
        `http://localhost:3000/weather?lat=${data.lat}&lon=${data.lon}&searchQuery=${data.display_name}`,
       );
-
       this.setState({
-        locationDate: data.date, 
+        locationDate: data.valid_date, 
         locationDescripton: data.description,
-      })
+      });
 
+      
     } catch (error) {
       console.log(error);
       this.setState({
@@ -76,6 +78,8 @@ class App extends Component {
             <h2>{this.state.locationDisplayName}</h2>
             <h2>{this.state.locationLat}</h2>
             <h2>{this.state.locationLon}</h2>
+            <h2>{this.state.locationDate}</h2>
+            <h2>{this.state.locationDescripton}</h2>
             {this.state.locationMap && <Image src={this.state.locationMap} alt="Location Map" />}
           </div>
         )}
