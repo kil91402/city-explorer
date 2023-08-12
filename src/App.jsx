@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Image, Button } from 'react-bootstrap';
+import { Image }  from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import "./styles.css";
+import './styles.css';
 
 const location_key = import.meta.env.VITE_APP_location_key;
 const WEATHER_API_KEY = import.meta.env.WEATHER_API_KEY;
@@ -19,7 +20,7 @@ class App extends Component {
       locationWeather: '',
       locationDate:'',
       locationDescripton:'',
-      forecast:'',
+      forecast: [],
       weather: [],
       error: null,
     };
@@ -40,27 +41,21 @@ class App extends Component {
         error: null,
       });
       let result2 = await axios.get(
-       // `http://localhost:3000/weather?&${req.query.data.lat},${req.query.data.lon}&key=${WEATHER_API_KEY}`,
-           `http://localhost:3000/weather?lat=${data.lat}&lon=${data.lon}&searchQuery=${data.display_name}`,
+        `http://localhost:3000/weather?lat=${data.lat}&lon=${data.lon}&searchQuery=${data.display_name}`,
       );
       data = result2.data;
-      console.log(data);
-       this.setState({
-        forecast: data[0].description,
-        locationDate: data[0].date,
-        
-
-        
+      const weatherCast = data.map(item=> ({
+        date: item.date,
+        description: item.description,
+      }))
+        this.setState({
+        forecast: weatherCast,
+            
        }); 
-
-      console.log(result.data);
-
-      //this.setState({
-       // locationDate: data.valid_date, 
-        //locationDescripton: data.description,
-      //});
-
+       
+       console.log("yes");
       
+            
     } catch (error) {
       console.log(error);
       this.setState({
@@ -83,7 +78,7 @@ class App extends Component {
             Location Name:
             <input type="text" value={this.state.locationName} onChange={this.handleChange} />
           </label>
-          <button type="submit">Explore!</button>
+          <Button type="submit">Explore!</Button>
         </form>
         {this.state.error ? (
           <div className="error">{this.state.error}</div>
@@ -93,7 +88,10 @@ class App extends Component {
             <h2>{this.state.locationLat}</h2>
             <h2>{this.state.locationLon}</h2>
             <h2>{this.state.locationDate}</h2>
-            <h2>{this.state.forecast}</h2>
+            <ul> {this.state.forecast.map((item, index) => ( <li key={index}>
+                  <strong>{item.date}:</strong> {item.description}
+                </li>
+              ))}</ul>
             {this.state.locationMap && <Image src={this.state.locationMap} alt="Location Map" />}
           </div>
         )}
