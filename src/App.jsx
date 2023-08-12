@@ -19,6 +19,8 @@ class App extends Component {
       locationWeather: '',
       locationDate:'',
       locationDescripton:'',
+      forecast:'',
+      weather: [],
       error: null,
     };
   }
@@ -37,14 +39,26 @@ class App extends Component {
         locationMap: `https://maps.locationiq.com/v3/staticmap?key=${location_key}&center=${data.lat},${data.lon}&zoom=15`,
         error: null,
       });
-      result = await axios.get(
+      let result2 = await axios.get(
        // `http://localhost:3000/weather?&${req.query.data.lat},${req.query.data.lon}&key=${WEATHER_API_KEY}`,
-       `http://localhost:3000/weather?lat=${data.lat}&lon=${data.lon}&searchQuery=${data.display_name}`,
+           `http://localhost:3000/weather?lat=${data.lat}&lon=${data.lon}&searchQuery=${data.display_name}`,
       );
-      this.setState({
-        locationDate: data.valid_date, 
-        locationDescripton: data.description,
-      });
+      data = result2.data;
+      console.log(data);
+       this.setState({
+        forecast: data[0].description,
+        locationDate: data[0].date,
+        
+
+        
+       }); 
+
+      console.log(result.data);
+
+      //this.setState({
+       // locationDate: data.valid_date, 
+        //locationDescripton: data.description,
+      //});
 
       
     } catch (error) {
@@ -79,7 +93,7 @@ class App extends Component {
             <h2>{this.state.locationLat}</h2>
             <h2>{this.state.locationLon}</h2>
             <h2>{this.state.locationDate}</h2>
-            <h2>{this.state.locationDescripton}</h2>
+            <h2>{this.state.forecast}</h2>
             {this.state.locationMap && <Image src={this.state.locationMap} alt="Location Map" />}
           </div>
         )}
