@@ -54,18 +54,18 @@ class App extends Component {
             
        }); 
        
-       
+       console.log("yes");
        let result3 = await axios.get(
         `http://localhost:3000/movies?searchQuery=${data.display_name}`,
        );
 
        data = result3.data;
-       const movie = data.map(item  => ({
+       const movie = data.map(item=> ({
         title: item.title,
         overview: item.overview,
         imgURL: item.imgURL,
         release_date: item.release_date
-       }));
+       }))
        this.setState({
         movieData: movie,
        });
@@ -109,21 +109,19 @@ class App extends Component {
               ))}</ul>
               {this.state.locationMap && <Image src={this.state.locationMap} alt="Location Map" />}
             </div><div className="main">
-               <ul> {this.state.forecast.map((item, index, movie) => (<li key={index}>
-                  <strong>{item.title}:</strong> {item.overview} {item.imgURL} {item.release_date}
-                </li>
-                ))}</ul>
-                 {this.state.movieData.length > 0 && (
-              <ul>
-                {this.state.movieData.map((item, index) => (
-                  <li key={index}>
-                    <strong>{item.title}:</strong> {item.overview} {item.release_date} {item.imgURL}
-                  </li>
-                ))}
-              </ul>
-            )}
-                
-              </div></>
+  <ul>
+    {this.state.movieData.map((item, index) => (
+      <li key={index}>
+        <strong>{item.title}:</strong> {item.overview}
+        <br />
+        <img src={item.imgURL} alt={`Poster for ${item.title}`} />
+        <br />
+        Release Date: {item.release_date}
+      </li>
+    ))}
+  </ul>
+</div>
+</>
         )}
       </>
     );
