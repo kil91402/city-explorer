@@ -22,6 +22,7 @@ class App extends Component {
       locationDescripton:'',
       forecast: [],
       weather: [],
+      movieData: [],
       error: null,
     };
   }
@@ -53,7 +54,21 @@ class App extends Component {
             
        }); 
        
-       console.log("yes");
+       
+       let result3 = await axios.get(
+        `http://localhost:3000/movies?searchQuery=${data.display_name}`,
+       );
+
+       data = result3.data;
+       const movie = data.map(item  => ({
+        title: item.title,
+        overview: item.overview,
+        imgURL: item.imgURL,
+        release_date: item.release_date
+       }));
+       this.setState({
+        movieData: movie,
+       });
       
             
     } catch (error) {
@@ -83,17 +98,32 @@ class App extends Component {
         {this.state.error ? (
           <div className="error">{this.state.error}</div>
         ) : (
-          <div className="main">
-            <h2>{this.state.locationDisplayName}</h2>
-            <h2>{this.state.locationLat}</h2>
-            <h2>{this.state.locationLon}</h2>
-            <h2>{this.state.locationDate}</h2>
-            <ul> {this.state.forecast.map((item, index) => ( <li key={index}>
-                  <strong>{item.date}:</strong> {item.description}
-                </li>
+          <><div className="main">
+              <h2>{this.state.locationDisplayName}</h2>
+              <h2>{this.state.locationLat}</h2>
+              <h2>{this.state.locationLon}</h2>
+              <h2>{this.state.locationDate}</h2>
+              <ul> {this.state.forecast.map((item, index) => (<li key={index}>
+                <strong>{item.date}:</strong> {item.description}
+              </li>
               ))}</ul>
-            {this.state.locationMap && <Image src={this.state.locationMap} alt="Location Map" />}
-          </div>
+              {this.state.locationMap && <Image src={this.state.locationMap} alt="Location Map" />}
+            </div><div className="main">
+               <ul> {this.state.forecast.map((item, index, movie) => (<li key={index}>
+                  <strong>{item.title}:</strong> {item.overview} {item.imgURL} {item.release_date}
+                </li>
+                ))}</ul>
+                 {this.state.movieData.length > 0 && (
+              <ul>
+                {this.state.movieData.map((item, index) => (
+                  <li key={index}>
+                    <strong>{item.title}:</strong> {item.overview} {item.release_date} {item.imgURL}
+                  </li>
+                ))}
+              </ul>
+            )}
+                
+              </div></>
         )}
       </>
     );
