@@ -1,6 +1,5 @@
 import React from "react";
 import { Card, CardDeck } from "react-bootstrap";
-import axios from "axios";
 
 const MOVIE_API = import.meta.env.MOVIE_API;
 
