@@ -8,6 +8,7 @@ import './styles.css';
 
 const location_key = import.meta.env.VITE_APP_location_key;
 const WEATHER_API_KEY = import.meta.env.WEATHER_API_KEY;
+const MOVIE_API = import.meta.env.MOVIE_API;
 
 class App extends Component {
   constructor(props) {
