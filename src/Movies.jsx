@@ -1,12 +1,13 @@
 import React from "react";
-import { Card } from "react-bootstrap";
+import { Card, CardDeck } from "react-bootstrap";
 
 const MOVIE_API = import.meta.env.MOVIE_API;
 
 const Movies = ({ movieData }) => {
   return (
     <div className="main">
-      <Card>
+      <h2>Movies</h2>
+      <CardDeck>
         {movieData.map((item, index) => (
           <Card key={index}>
             <Card.Img
@@ -21,7 +22,7 @@ const Movies = ({ movieData }) => {
             </Card.Body>
           </Card>
         ))}
-      </Card>
+      </CardDeck>
     </div>
   );
 };
