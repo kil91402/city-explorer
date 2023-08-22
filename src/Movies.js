@@ -6,7 +6,6 @@ const MOVIE_API = import.meta.env.MOVIE_API;
 const Movies = ({ movieData }) => {
   return (
     <div className="main">
-      <h2>Movies</h2>
       <CardDeck>
         {movieData.map((item, index) => (
           <Card key={index}>
