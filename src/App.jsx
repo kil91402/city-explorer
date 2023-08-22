@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Movies from './Movies'
 import axios from 'axios';
 import { Image }  from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
