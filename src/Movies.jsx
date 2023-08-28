@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Accordion, CardGroup } from "react-bootstrap";
+import { Card, CardGroup } from "react-bootstrap";
 
 const MOVIE_API = import.meta.env.MOVIE_API;
 
