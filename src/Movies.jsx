@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, CardGroup } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 
 const MOVIE_API = import.meta.env.MOVIE_API;
 
@@ -7,7 +7,7 @@ const Movies = ({ movieData }) => {
   return (
     <div className="main">
       <h2>Movies</h2>
-      <CardGroup>
+      
         {movieData.map((item, index) => (
           <Card key={index}>
             <Card.Img
@@ -22,7 +22,7 @@ const Movies = ({ movieData }) => {
             </Card.Body>
           </Card>
         ))}
-      </CardGroup>
+      
     </div>
   );
 };
