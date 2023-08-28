@@ -111,17 +111,22 @@ class App extends Component {
               ))}</ul>
               {this.state.locationMap && <Image src={this.state.locationMap} alt="Location Map" />}
             </div><div className="main">
-  <ul>
-    {this.state.movieData.map((item, index) => (
-      <li key={index}>
-        <strong>{item.title}:</strong> {item.overview}
-        <br />
-        <img src={item.imgURL} alt={`Poster for ${item.title}`} />
-        <br />
-        Release Date: {item.release_date}
-      </li>
-    ))}
-  </ul>
+            {this.state.movieData.length > 0 && (
+  <div className="main">
+    <h2>Movies</h2>
+    <ul>
+      {this.state.movieData.map((item, index) => (
+        <li key={index}>
+          <strong>{item.title}:</strong> {item.overview}
+          <br />
+          <img src={item.imgURL} alt={`Movie Poster for ${item.title}`} />
+          <br />
+          Release Date: {item.release_date}
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
 </div>
 </>
         )}
