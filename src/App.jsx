@@ -44,8 +44,9 @@ class App extends Component {
         error: null,
       });
       let result2 = await axios.get(
-        `http://localhost:3000/weather?lat=${data.lat}&lon=${data.lon}&searchQuery=${data.display_name}`,
+        `http://localhost:3000/weather?lat=${data.lat}&lon=${data.lon}`,
       );
+      
       data = result2.data;
       const weatherCast = data.map(item=> ({
         date: item.date,
@@ -58,8 +59,9 @@ class App extends Component {
        
        console.log("yes");
        let result3 = await axios.get(
-        `http://localhost:3000/movies?searchQuery=${data.display_name}`,
-       );
+        `http://localhost:3000/movies?query=${data.display_name}`,
+      );
+      
 
        data = result3.data;
        const movie = data.map(item=> ({
