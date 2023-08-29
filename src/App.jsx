@@ -1,5 +1,8 @@
+'use strict',
 import React, { Component } from 'react';
 import Movies from './Movies';
+import WeatherDay from './WeatherDay';
+import Movie from './Movie';
 import axios from 'axios';
 import { Image }  from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
@@ -113,6 +116,11 @@ class App extends Component {
               ))}</ul>
               {this.state.locationMap && <Image src={this.state.locationMap} alt="Location Map" />}
             </div><div className="main">
+            <ul>
+  {this.state.forecast.map((item, index) => (
+    <WeatherDay key={index} date={item.date} description={item.description} />
+  ))}
+</ul>
             {this.state.movieData.length > 0 && (
   <div className="main">
     <h2>Movies</h2>
@@ -127,6 +135,18 @@ class App extends Component {
         </li>
       ))}
     </ul>
+    <ul>
+  {this.state.movieData.map((item, index) => (
+    <Movie
+      key={index}
+      title={item.title}
+      overview={item.overview}
+      imgURL={item.imgURL}
+      release_date={item.release_date}
+    />
+  ))}
+</ul>
+
   </div>
 )}
 </div>
