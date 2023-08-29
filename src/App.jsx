@@ -1,5 +1,5 @@
 'use strict',
-import React, { Component } from 'react';
+import React { Component } from 'react';
 import Movies from './Movies';
 import WeatherDay from './WeatherDay';
 import Movie from './Movie';
